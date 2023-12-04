@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Início{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Início</a></li>
+                <li><a href="{{ url_for('profile', username=current_user.username) }}">Perfil</a></li>
+                <li><a href="{{ url_for('cart') }}">Carrinho</a></li>
+            </ul>
+        </nav>
+        <hr>
+    </header>
+    {% if current_user.is_authenticated %}
+        <h2>Cafeteria Gourmet</h2>
+        <p>Bem-vindo, {{ current_user.username }}! (<a href="{{ url_for('logout') }}">Sair</a>)</p>
+        <hr>
+    {% endif %}
+    <form method="POST" action="{{ url_for('home') }}">
+        <input type="text" id="search_term" name="search_term" value="{{ search_term }}" placeholder="Digite o nome do produto...">
+        <button type="submit" class="btn btn-primary">Procurar</button>
+    </form>
+    <hr>
+    <p>Lista de Produtos:</p>
+    <ul>
+        {% for product in products %}
+            <li>                
+                <a href="{{ url_for('view_product', product_id=product.id) }}">{{ product.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

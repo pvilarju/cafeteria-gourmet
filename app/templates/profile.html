@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Início</a></li>
+                <li><a href="{{ url_for('profile', username=current_user.username) }}">Perfil</a></li>
+                <li><a href="{{ url_for('cart') }}">Carrinho</a></li>
+            </ul>
+        </nav>
+        <hr>
+    </header>
+    <h2>Perfil</h2>
+    <hr>
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Telefone: {{ user.phone }}</p>
+    <p>Endereço: {{ user.address }}</p>
+    <hr>    
+    <a href="{{ url_for('edit_profile', username=user.username) }}">Editar Perfil</a>
+</body>
+</html>

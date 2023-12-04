@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Carrinho de Compras</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Início</a></li>
+                <li><a href="{{ url_for('profile', username=current_user.username) }}">Perfil</a></li>
+                <li><a href="{{ url_for('cart') }}">Carrinho</a></li>
+            </ul>
+        </nav>
+        <hr>
+    </header>
+    <h2>Seu Carrinho de Compras</h2>
+    <hr>
+    {% if products %}
+    <ul>
+        {% for product in products %}
+    <li>
+        {{ product.name }} - R$ {{ product.price_formatted }}
+    </li>
+    {% endfor %}
+    </ul>
+    <p>Preço total: R${{ total_price }}</p>
+    <form method="POST" action="{{ url_for('checkout') }}">
+        <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+    </form>
+    {% else %}
+    <p>Seu carrinho está vazio.</p>
+    {% endif %}
+    
+</body>
+</html>
